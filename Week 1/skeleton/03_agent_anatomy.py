@@ -79,24 +79,28 @@ example = AgentBlueprint(
 
 
 # ---------------------------------------------------------------------------
-# YOUR BLUEPRINT — TODO: design an agent of your own
+# YOUR BLUEPRINT — assignment feedback agent
 # ---------------------------------------------------------------------------
 my_agent = AgentBlueprint(
-    name="xav_bot",
-    goal="correct assignment of my students",
-    done_when="It's complete when all assignments of my students are corrected and feedback is provided.",
+    name="Assignment Feedback Agent",
+    goal="Grade each submitted student assignment against the supplied rubric and draft actionable feedback.",
+    done_when="Every assignment in the provided batch has a rubric-based score and feedback draft, or is marked for instructor review with the reason recorded.",
     tools=[
-        "ACces to internet",
-        "PDF reader",
+        "read_assignment(file_path) -> assignment text",
+        "read_rubric(file_path) -> grading criteria and point values",
+        "save_feedback(student_id, assignment_id, score, feedback) -> saved draft",
     ],
     memory=[
-        "List of students and their assignments",
-        "Feedback provided to each student in previous sessions",
+        "The roster and assignments in the current batch, including processing status",
+        "The rubric criteria and point values used for this batch",
+        "Scores, feedback drafts, and reasons for any instructor-review flags",
     ],
     actions=[
-        "Review each student's assignment",
-        "Provide feedback and corrections",
-        "Notify me when all assignments are corrected and feedback is provided",
+        "Load the assignment batch and rubric; confirm each submission can be matched to a student and assignment.",
+        "For each submission, assess each rubric criterion and calculate the total score from the criterion scores.",
+        "Draft concise, evidence-based feedback that cites the rubric and the submitted work.",
+        "Flag missing, unreadable, ambiguous, or out-of-scope submissions for instructor review instead of guessing.",
+        "Save each score and feedback draft, then verify every submission is either complete or flagged with a reason.",
     ],
 )
 
