@@ -1,5 +1,7 @@
 # BITS Pilani Dubai — Agentic AI Engineering (CRP 2026)
 
+**Agentic_AI — CRP'26 Agentic AI**
+
 Course code for the **Agentic AI Engineering** track, run by Tecoholic with
 BITS Pilani Dubai Campus. Each week has its own folder with two parallel tracks:
 
