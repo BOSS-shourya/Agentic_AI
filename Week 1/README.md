@@ -13,18 +13,18 @@ By the end of the week you can:
 - Trace the **agent loop**: observe → reason → act → evaluate.
 - Run a working agent loop and design a blueprint of your own.
 
-## Files (work in `skeleton/`, check `trainer/` if stuck)
+## Exercises (completed implementations are in `skeleton/`)
 
-| File | What it is | Coding? |
+| File | What it is | Status |
 |------|-----------|---------|
-| `00_setup_check.py` | Verify your environment + first LLM call | run only |
-| `01_assistant_vs_agent.py` | Assistant (words) vs agent (tool) | 2 small TODOs |
-| `02_llm_reasoning_limits.py` | See hallucination & reasoning drift | 1 small TODO |
-| `03_agent_anatomy.py` | **Design your agent blueprint** — *deliverable* | fill the blueprint |
-| `04_agent_loop.py` | **Build the agent loop** — the week's coding exercise | 4 TODOs |
-| `05_reflection_loop.py` | Add self-check (reflect → retry) to the loop | 2 TODOs |
-| `06_multi_tool_agent.py` | Two tools + choose one; safe (no-`eval`) calculator | 3 TODOs |
-| `07_advanced_agent.py` | *Advanced:* native function calling + challenges | optional |
+| `00_setup_check.py` | Verify your environment + first LLM call | Run to check API setup |
+| `01_assistant_vs_agent.py` | Compare a language-only answer with an exact arithmetic tool | Complete; requires API key |
+| `02_llm_reasoning_limits.py` | See hallucination & reasoning drift | Complete; requires API key |
+| `03_agent_anatomy.py` | **Design your agent blueprint** — *deliverable* | Complete; no API key |
+| `04_agent_loop.py` | **Build the agent loop** — the week's coding exercise | Complete; requires API key |
+| `05_reflection_loop.py` | Add self-check (reflect → retry) to the loop | Complete; requires API key |
+| `06_multi_tool_agent.py` | Two tools + choose one; safe arithmetic calculator | Complete; requires API key |
+| `07_advanced_agent.py` | *Advanced:* native function calling | Complete; OpenAI or Groq API |
 
 ## How to run
 ```bash
