@@ -1,26 +1,3 @@
-"""
-03 · Agent anatomy — design a task-execution agent blueprint.
-
-   >>> THIS IS YOUR WEEK 1 DELIVERABLE. <<<
-
-Every agent, from a toy to a production system, is made of four parts:
-    GOAL     — what it's trying to achieve (and how we know it's done)
-    TOOLS    — how it acts on the world (APIs, code, search, databases)
-    MEMORY   — what it remembers between steps
-    ACTIONS  — the sequence of steps it takes
-
-A worked EXAMPLE is filled in for you below. Study it, then design YOUR OWN
-agent for a real, repetitive, multi-step task you'd like to automate.
-
--------------------------------------------------------------------
-YOUR TASK
-  TODO: Fill in `my_agent` with your own blueprint. Keep the task realistic
-        and bounded. Be specific about `done_when` — a vague goal can't be
-        evaluated. Then run the file to print your blueprint.
--------------------------------------------------------------------
-No LLM/API key needed for this exercise — it's pure design.
-"""
-
 from dataclasses import dataclass, field
 from typing import List
 
@@ -52,9 +29,6 @@ class AgentBlueprint:
         print()
 
 
-# ---------------------------------------------------------------------------
-# WORKED EXAMPLE (already complete) — a restaurant-booking agent
-# ---------------------------------------------------------------------------
 example = AgentBlueprint(
     name="Restaurant Booking Agent",
     goal="Book a dinner table for 4 people this Friday at 8 PM near the user.",
@@ -78,9 +52,6 @@ example = AgentBlueprint(
 )
 
 
-# ---------------------------------------------------------------------------
-# YOUR BLUEPRINT — TODO: design an agent of your own
-# ---------------------------------------------------------------------------
 my_agent = AgentBlueprint(
     name="xav_bot",
     goal="correct assignment of my students",

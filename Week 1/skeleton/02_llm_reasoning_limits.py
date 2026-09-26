@@ -1,25 +1,3 @@
-"""
-02 · LLM reasoning limits  —  see WHY agents need more than an LLM.
-
-This is a DEMO you run and observe. It shows two classic failure modes:
-  1. HALLUCINATION  — the model invents facts about things that don't exist.
-  2. REASONING DRIFT — the model loses track over a multi-step problem,
-                        and a "think step by step" prompt usually fixes it.
-
-These are exactly the problems the rest of the course engineers away
-(RAG for hallucination; structure + memory for drift).
-
--------------------------------------------------------------------
-YOUR TASK
-  TODO 1: Fill in `cot_prompt` — the "chain-of-thought" version of the puzzle
-          (hint: append "Let's think step by step.").
-  Then run it and compare the direct answer vs the step-by-step answer.
--------------------------------------------------------------------
-
-Trainer tip: hallucinations show up most clearly on a smaller/older model
-(e.g. openai gpt-3.5-turbo). Set LLM_MODEL in your .env to try different models.
-"""
-
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -56,7 +34,6 @@ def demo_reasoning(client):
     print(direct, "\n")
 
     print("Attempt 2 — chain-of-thought:")
-    # TODO 1: build the chain-of-thought prompt (ask the model to reason step by step)
     cot_prompt = ""  # TODO 1
     if not cot_prompt:
         print("(Complete TODO 1 to run the chain-of-thought version.)\n")
