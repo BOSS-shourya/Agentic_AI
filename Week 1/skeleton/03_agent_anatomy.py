@@ -14,9 +14,7 @@ agent for a real, repetitive, multi-step task you'd like to automate.
 
 -------------------------------------------------------------------
 YOUR TASK
-  TODO: Fill in `my_agent` with your own blueprint. Keep the task realistic
-        and bounded. Be specific about `done_when` — a vague goal can't be
-        evaluated. Then run the file to print your blueprint.
+  Study the completed `my_agent` blueprint, then run the file to print it.
 -------------------------------------------------------------------
 No LLM/API key needed for this exercise — it's pure design.
 """

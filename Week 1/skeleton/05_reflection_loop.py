@@ -14,24 +14,20 @@ Module 3 (agent architectures) and Module 4 (memory); "is the answer good
 enough?" is the heart of Module 7 (evaluation & guardrails).
 
 -------------------------------------------------------------------
-YOUR TASKS  (the base loop is given — you add the reflection)
-  TODO 1 · write reflect(): ask the LLM to judge the final answer and reply
-           CONFIRM  or  REVISE: <what's wrong>
-  TODO 2 · in run_agent(), when the agent says FINAL, call reflect().
-           If it CONFIRMs, return. If it REVISEs, push the feedback into
-           history and let the loop run again instead of returning.
+The completed loop asks the model to reflect on each final answer and retries
+when the reflection does not confirm it.
 -------------------------------------------------------------------
-Run it:  python skeleton/05_reflection_loop.py     (goal solves to 180)
-Stuck?   trainer/05_reflection_loop.py has the full version.
+Run it:  python "Week 1/skeleton/05_reflection_loop.py" (goal solves to 180)
 """
 
 import sys, os, re
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils.llm_client import LLMClient
+from utils.safe_math import evaluate_arithmetic
 
 
 def calculator(expression: str):
-    return eval(expression, {"__builtins__": {}}, {})
+    return evaluate_arithmetic(expression)
 
 
 SYSTEM = """You are a reasoning agent that solves a task step by step.
@@ -48,15 +44,19 @@ MAX_STEPS = 8
 
 def reflect(client, goal, answer):
     """
-    TODO 1: Ask the LLM to check `answer` against `goal`.
-    Return the model's reply. Prompt it to respond with EXACTLY one line:
+    Ask the LLM to check `answer` against `goal`.
+    It is prompted to respond with EXACTLY one line:
         CONFIRM
       or
         REVISE: <one sentence on what is wrong>
     Keep temperature=0.0.
     """
-    # TODO 1: build a critique prompt and return client.get_completion(...)
-    return "CONFIRM"   # <- replace this stub
+    prompt = (
+        f"Task: {goal}\nProposed answer: {answer}\n"
+        "Check the answer independently against the task. Reply with exactly one line: "
+        "CONFIRM if it is correct, or REVISE: <one sentence explaining the error>."
+    )
+    return client.get_completion(prompt, temperature=0.0, max_tokens=200)
 
 
 def run_agent(goal: str):
@@ -73,19 +73,24 @@ def run_agent(goal: str):
 
         if line.upper().startswith("FINAL:"):
             answer = line.split(":", 1)[1].strip()
-            # TODO 2: reflect before you trust it.
-            #   verdict = reflect(client, goal, answer)
-            #   if it starts with CONFIRM -> return answer
-            #   else -> add the critique to history and CONTINUE the loop
-            return answer   # <- replace: only return after a CONFIRM
+            verdict = (reflect(client, goal, answer) or "").strip()
+            print(f"        reflection: {verdict}")
+            if verdict.upper().startswith("CONFIRM"):
+                return answer
+            history += (
+                f"\nThe proposed answer {answer!r} was not confirmed. "
+                f"Reflection: {verdict or 'No usable verdict was returned.'} "
+                "Re-check the work and try again."
+            )
+            continue
 
         match = re.search(r"calculator\[(.+?)\]", line)
         if match:
             expr = match.group(1)
             try:
                 result = calculator(expr)
-            except Exception as e:
-                result = f"error: {e}"
+            except (ArithmeticError, SyntaxError, TypeError, ValueError) as error:
+                result = f"error: {error}"
             print(f"        observation: calculator[{expr}] = {result}")
             history += f"\nYou ran calculator[{expr}] and got {result}."
         else:

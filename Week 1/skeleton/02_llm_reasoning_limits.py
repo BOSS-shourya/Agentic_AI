@@ -10,10 +10,8 @@ These are exactly the problems the rest of the course engineers away
 (RAG for hallucination; structure + memory for drift).
 
 -------------------------------------------------------------------
-YOUR TASK
-  TODO 1: Fill in `cot_prompt` — the "chain-of-thought" version of the puzzle
-          (hint: append "Let's think step by step.").
-  Then run it and compare the direct answer vs the step-by-step answer.
+Run the completed demo and compare the direct answer with the answer that
+tracks each state change in the puzzle.
 -------------------------------------------------------------------
 
 Trainer tip: hallucinations show up most clearly on a smaller/older model
@@ -56,12 +54,11 @@ def demo_reasoning(client):
     print(direct, "\n")
 
     print("Attempt 2 — chain-of-thought:")
-    # TODO 1: build the chain-of-thought prompt (ask the model to reason step by step)
-    cot_prompt = ""  # TODO 1
-    if not cot_prompt:
-        print("(Complete TODO 1 to run the chain-of-thought version.)\n")
-    else:
-        print(client.get_completion(cot_prompt, temperature=0.0), "\n")
+    cot_prompt = (
+        puzzle
+        + "\nTrack the contents after each numbered operation, then give the final answer."
+    )
+    print(client.get_completion(cot_prompt, temperature=0.0), "\n")
 
     print(f"Ground truth: {ground_truth}")
     print(">> Without intermediate steps, models often lose track of state.")
