@@ -3,20 +3,17 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from utils.llm_client import LLMClient
+from utils.safe_math import evaluate_arithmetic
 
 
 def calculator(expression: str):
-    return None
+    return evaluate_arithmetic(expression)
 
 
 def main():
     client = LLMClient()
 
-    task = ""  # TODO 1: e.g. "What is 18.5% of 2480, plus 365? Give only the number."
-
-    if not task:
-        print("Please complete TODO 1 (write the `task`).")
-        return
+    task = "What is 18.5% of 2480, plus 365? Give only the number."
 
     print("=" * 60)
     print(" (A) ASSISTANT — answers in words (may be wrong)")
@@ -27,7 +24,7 @@ def main():
     print("=" * 60)
     print(" (B) AGENT — uses the calculator tool (exact)")
     print("=" * 60)
-    expression = "0.185 * 2480 + 365"
+    expression = "0.185 * 2480 + 365"   # (matches the task above; change if your task differs)
     tool_result = calculator(expression)
     print(f"calculator({expression!r}) = {tool_result}\n")
 

@@ -34,11 +34,11 @@ def demo_reasoning(client):
     print(direct, "\n")
 
     print("Attempt 2 — chain-of-thought:")
-    cot_prompt = ""  # TODO 1
-    if not cot_prompt:
-        print("(Complete TODO 1 to run the chain-of-thought version.)\n")
-    else:
-        print(client.get_completion(cot_prompt, temperature=0.0), "\n")
+    cot_prompt = (
+        puzzle
+        + "\nTrack the contents after each numbered operation, then give the final answer."
+    )
+    print(client.get_completion(cot_prompt, temperature=0.0), "\n")
 
     print(f"Ground truth: {ground_truth}")
     print(">> Without intermediate steps, models often lose track of state.")
