@@ -17,3 +17,13 @@ Overall: 01–07 complete, with 07 stretch Level 3. Very strong work, and the sh
 - 06: Done.
 - 07: Done + Level 3 (argument validation, bad-JSON handling). Try Levels 1, 2 and 4 next.
 - Please keep the module docstrings/TODO banners; they were removed from 01–05.
+
+## Follow-up review (2026-10-07)
+
+**Previous feedback:** Not implemented. There are no new commits since 26 Sep (last push: "Merge latest README changes from GitHub"). Still open:
+- Problem statement file: missing.
+- 04: `line` is still the whole reply with `fullmatch` regexes; keep only the first line.
+- 05: `verdict.upper() == "CONFIRM"` still rejects "CONFIRM."; use `startswith("CONFIRM")`.
+- Module docstrings / TODO banners in 01–05: still removed.
+
+Please address the points above first, then push Week 2 (labs 00–06 were due Mon 5 Oct; the `project/` milestone is due Sat 10 Oct).
